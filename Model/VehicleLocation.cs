@@ -18,6 +18,7 @@ namespace getVehicleLocationAPI.Model
         [Range(0,1)]
         public int Active { get; set; }
         public string VehicleLatLong { get; set; }
+        public string Address { get; set;}
 
     }
 }

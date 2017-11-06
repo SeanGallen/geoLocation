@@ -10,6 +10,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using Newtonsoft.Json.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace getVehicleLocationAPI.ServiceFunctionality
 {
@@ -56,5 +57,26 @@ namespace getVehicleLocationAPI.ServiceFunctionality
 
             }
         }
+
+        public async Task<string> SaveAddress(string newAddress, VehicleLocation vehicleLocation)
+		{
+			vehicleLocation.Address = newAddress;
+			_context.Entry(vehicleLocation).State = EntityState.Modified;
+			_context.VehicleLocations.Update(vehicleLocation);
+
+			try
+			{
+
+				await _context.SaveChangesAsync();
+				return "Response:{ status: Succes, description: Vehicle data saved}";
+			}
+			catch (DbUpdateConcurrencyException e)
+			{
+				return "Look here " + e.Message;
+
+			}
+		}
+
+
     }
 }

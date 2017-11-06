@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using getVehicleLocationAPI.Data;
 using getVehicleLocationAPI.Model;
 using getVehicleLocationAPI.ServiceFunctionality;
+using System;
 
 namespace getVehicleLocationAPI.Controllers
 {
@@ -40,18 +41,28 @@ namespace getVehicleLocationAPI.Controllers
                 return BadRequest(ModelState);
             }
 
+
             var vehicleLocation = await _context.VehicleLocations.SingleOrDefaultAsync(m => m.Id == id);
+
 
             if (vehicleLocation == null)
             {
                 return NotFound();
             }
 
+            var address = vehicleLocation.Address;
+
+            if (!String.IsNullOrEmpty(address))
+            {
+                return Ok(address);
+            }
+
+
             string[] latLongArray = vehicleLocation.VehicleLatLong.Split("#");
 
             GetRequests location = new GetRequests(_context);
-           string answer = await location.ReturnLocation(latLongArray[1]);
-
+            string answer = await location.ReturnLocation(latLongArray[1]);
+            string saveAnswer = await location.SaveAddress(answer, vehicleLocation);
 
             return Ok(answer);
         }
