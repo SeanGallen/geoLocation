@@ -105,24 +105,23 @@ namespace getVehicleLocationAPI.Controllers
 
         // POST: api/VehicleLocations
         [HttpPost]
-        public async Task<IActionResult> PostVehicleLocation([FromBody] VehicleLocation vehicleLocation)
+        public async Task<IActionResult> PostVehicleLocation([FromBody] VehicleDTO vehicleLocation)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-
             PostCheck checkIt = new PostCheck();
             string response = "";
-            string res = await checkIt.DoesItExist(_context, vehicleLocation);
-            if (res.Equals("1"))
-            {
-                response = await checkIt.AddIt(_context, vehicleLocation);
-            }
-            else
-            {
-                response = "Response:{ status: Failed, description: Vehicle data not saved because it alreayd exists.}";
-            }
+           // string res = await checkIt.DoesItExist(_context, vehicleLocation);
+        //     if (res.Equals("1"))
+        //     {
+        // //        response = await checkIt.AddIt(_context, vehicleLocation);
+        //     }
+            // else
+            // {
+            //     response = "Response:{ status: Failed, description: Vehicle data not saved because it alreayd exists.}";
+            // }
             
 
             return Ok(response);

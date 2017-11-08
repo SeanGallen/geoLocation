@@ -32,7 +32,7 @@ namespace getVehicleLocationAPI
 			Secrets connectionStr = new Secrets();
            // var connection = @"Server=tcp:carfinderserver.database.windows.net,1433;Initial Catalog=CarFinder;Persist Security Info=False;User ID=seanjgallen;Password=testtest1!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
 			var connection = connectionStr.Connection;
-			services.AddDbContext<LocationContext>(options => options.UseSqlServer(connection));
+			services.AddDbContext<LocationContext>(options => options.UseInMemoryDatabase()); //options.UseSqlServer(connection));
 
 			services.AddSwaggerGen(c =>
 			{
