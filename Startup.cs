@@ -40,10 +40,11 @@ namespace getVehicleLocationAPI
             {
                 c.SwaggerDoc("v1", new Info
                 {
-                    Version = "v1",
-                    Title = "ToDo API",
-                    Description = "A simple example ASP.NET Core Web API",
-                    TermsOfService = "None",
+                    Title = "LatLong to Address API",
+					Description = "An API that uses Google GeoLocation API to convert LatLong values to street addresses.",
+					Version = "v1",
+					TermsOfService = "None",
+					Contact = new Contact { Name = "Riccardo Gabrielle", Email = "riccardo.gabrielli@accenture.com"}
                 });
 
                 // Set the comments path for the Swagger JSON and UI.
