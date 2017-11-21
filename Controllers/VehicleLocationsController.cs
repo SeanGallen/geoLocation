@@ -32,6 +32,13 @@ namespace getVehicleLocationAPI.Controllers
           
         }
 
+        /// <summary>
+        /// Returns the address for vechicle id. 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>
+        /// The Address, saved as a sign, is return as JSON.</returns>
+        
         // GET: api/GeoLocation/
         [HttpGet("{id}")]
         public async Task<IActionResult> GetAddress([FromRoute] int id)
@@ -42,7 +49,7 @@ namespace getVehicleLocationAPI.Controllers
             }
 
 
-            var vehicleLocation = await _context.VehicleLocations.SingleOrDefaultAsync(m => m.Id == id);
+            var vehicleLocation =  _context.VehicleLocations.SingleOrDefault(m => m.Id == id);
 
 
             if (vehicleLocation == null)
@@ -103,6 +110,7 @@ namespace getVehicleLocationAPI.Controllers
             return NoContent();
         }
 
+       
         // POST: api/VehicleLocations
         [HttpPost]
         public async Task<IActionResult> PostVehicleLocation([FromBody] VehicleDTO vehicleLocation)
@@ -113,16 +121,6 @@ namespace getVehicleLocationAPI.Controllers
             }
             PostCheck checkIt = new PostCheck();
             string response = "";
-           // string res = await checkIt.DoesItExist(_context, vehicleLocation);
-        //     if (res.Equals("1"))
-        //     {
-        // //        response = await checkIt.AddIt(_context, vehicleLocation);
-        //     }
-            // else
-            // {
-            //     response = "Response:{ status: Failed, description: Vehicle data not saved because it alreayd exists.}";
-            // }
-            
 
             return Ok(response);
         }

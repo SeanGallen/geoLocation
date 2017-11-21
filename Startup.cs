@@ -12,6 +12,8 @@ using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
 using getVehicleLocationAPI.Model;
 using getVehicleLocationAPI.Data;
+using Microsoft.Extensions.PlatformAbstractions;
+using System.IO;
 
 namespace getVehicleLocationAPI
 {
@@ -30,15 +32,26 @@ namespace getVehicleLocationAPI
 			services.AddMvc();
 
 			Secrets connectionStr = new Secrets();
-           // var connection = @"Server=tcp:carfinderserver.database.windows.net,1433;Initial Catalog=CarFinder;Persist Security Info=False;User ID=seanjgallen;Password=testtest1!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+         
 			var connection = connectionStr.Connection;
-			services.AddDbContext<LocationContext>(options => options.UseInMemoryDatabase()); //options.UseSqlServer(connection));
+			services.AddDbContext<LocationContext>(options => options.UseInMemoryDatabase()); 
 
-			services.AddSwaggerGen(c =>
-			{
-				c.SwaggerDoc("v1", new Info { Title = "My CVS API", Version = "v1" });
-			});
-		}
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info
+                {
+                    Version = "v1",
+                    Title = "ToDo API",
+                    Description = "A simple example ASP.NET Core Web API",
+                    TermsOfService = "None",
+                });
+
+                // Set the comments path for the Swagger JSON and UI.
+                var basePath = PlatformServices.Default.Application.ApplicationBasePath;
+                var xmlPath = Path.Combine(basePath, "getVehicleLocationAPI.xml");
+                c.IncludeXmlComments(xmlPath);
+            });
+        }
 
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 		{
