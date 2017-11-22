@@ -32,8 +32,7 @@ namespace getVehicleLocationAPI.ServiceFunctionality
         {
             string responseBody;
             HttpClient client = new HttpClient();
-            Secrets Api = new Secrets();
-            var API = Api.API;
+            var API = "Add a Google Geolocation Api";
 
             var httpsString = $"https://maps.googleapis.com/maps/api/geocode/json?latlng={latLong}&key={API}";
 

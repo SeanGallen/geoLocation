@@ -31,9 +31,6 @@ namespace getVehicleLocationAPI
 
 			services.AddMvc();
 
-			Secrets connectionStr = new Secrets();
-         
-			var connection = connectionStr.Connection;
 			services.AddDbContext<LocationContext>(options => options.UseInMemoryDatabase()); 
 
             services.AddSwaggerGen(c =>
