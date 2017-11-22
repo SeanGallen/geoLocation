@@ -113,14 +113,14 @@ namespace getVehicleLocationAPI.Controllers
        
         // POST: api/VehicleLocations
         [HttpPost]
-        public async Task<IActionResult> PostVehicleLocation([FromBody] VehicleDTO vehicleLocation)
+        public async Task<IActionResult> PostVehicleLocation([FromBody] VehicleLocation vehicleLocation)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
             PostCheck checkIt = new PostCheck();
-            string response = "";
+            string response = await checkIt.AddIt(_context, vehicleLocation);
 
             return Ok(response);
         }
